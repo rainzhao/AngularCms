@@ -1,0 +1,74 @@
+.mp-active-form-row{
+  *:focus{outline: none !important;}
+  display: flex;
+  height: 40px;
+  line-height: 40px;
+  .mp-active-form-name{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    color: #000;
+    font-size: 14px;
+  }
+  .mp-active-form-input{
+    flex: 1;
+    input{
+      outline: none;
+      border: none;
+      height: 40px;
+      line-height: 40px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+  .mp-active-form-select{
+    select{
+      height: 40px;
+      line-height: 40px;
+      outline: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      padding-right: 22px;
+      padding-left: 12px;
+      background: url("../assets/svg/ic_keyboard_arrow_down_black_24px.svg") right center no-repeat;
+      border: none;
+      background-color: $whiteColor;
+      &::-ms-expand { display: none; }
+    }
+  }
+  .mp-active-form-radio{
+    >label{
+      font-weight: normal;
+      cursor: pointer;
+      margin: 0px;
+      vertical-align: middle;
+      display: inline-block;
+      span:nth-child(2){
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+    }
+
+    input[type="radio"]{
+      display: none;
+    }
+    input[type="radio"] + label span:nth-child(1){
+      display: inline-block;
+      line-height: 20px;
+      height: 14px;
+      width: 14px;
+      vertical-align: middle;
+      background-color: #d4d4d4;
+      border-color: #ddd;
+      text-indent: 2em;
+    }
+    input[type="radio"]:checked + label span:nth-child(1){
+      display: inline-block;
+      background-image: none;
+      background-color: #2cb5ac;
+    }
+  }
+
+
+}

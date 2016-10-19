@@ -1,0 +1,132 @@
+<div class="mp-org-profile-panel">
+  <form name="profileForm" novalidate ng-submit="submit(profileForm, formData)">
+
+    <div class="_row" ng-if="$isCreate()">
+      <label class="_title">管理员用户名</label>
+      <input name="adminUsername" type="text" ng-model="formData.adminUsername" ng-required="true" mp-validator>
+    </div>
+    <div class="_row" ng-if="$isCreate()">
+      <label class="_title">管理员密码</label>
+      <input name="adminPassword" type="password" ng-model="formData.adminPassword" ng-required="true" mp-validator>
+    </div>
+
+    <div class="_row">
+      <label class="_title">组织类型</label>
+      <select name="orgType" ng-model="formData.orgType" ng-required="true" mp-validator>
+        <option value="CAMPUS">校园组织</option>
+        <option value="SOCIETY">企业或社会组织</option>
+      </select>
+    </div>
+
+    <div class="_row">
+      <label class="_title" ng-show="formData.$isCampus()">组织名称</label>
+      <label class="_title" ng-show="formData.$isSociety()">企业或组织名称</label>
+
+      <input name="name" type="text" ng-model="formData.name" ng-required="true" mp-validator>
+      <!--<input name="name" type="text" ng-model="formData.name" ng-required="true" mp-autocomplete="{api: 'getOrgNames'}" mp-validator>-->
+
+
+    </div>
+
+    <div class="_row">
+      <label class="_title">组织logo</label>
+      <input type="hidden" ng-model="formData.logoUrl" ng-required="true" mp-validator="{required: '请上传一张图片'}">
+      <mp-img-uploader result="formData.logoUrl" class="_logo-wrapper">
+        <img class="_logo" ng-src="{{formData.logoUrl}}">
+        <button type="button" class="button mp-upload-btn" ng-if="!formData.logoUrl" href=""></button>
+      </mp-img-uploader>
+    </div>
+
+    <div class="_row" ng-if="formData.$isCampus()">
+      <label class="_title">学校名称</label>
+      <input type="text" ng-model="formData.campusName" ng-required="true" mp-validator>
+    </div>
+
+    <div class="_row">
+      <label ng-show="formData.$isSociety()" class="_title">法人姓名</label>
+      <label ng-show="formData.$isCampus()" class="_title">负责人姓名</label>
+      <input type="text" ng-model="formData.personInChargeName" ng-required="true" mp-validator>
+    </div>
+
+    <div class="_row" ng-if="formData.$isSociety()">
+      <label class="_title">社会统一信用代码</label>
+      <input type="text" ng-model="formData.succ" ng-required="true" mp-validator>
+    </div>
+
+    <div class="_row">
+      <label class="_title" ng-show="formData.$isCampus()">校区地址</label>
+      <label class="_title" ng-show="formData.$isSociety()">注册地址</label>
+      <div>
+        <div class="_address-group">
+          <select ng-model="formData.geoLevel1" ng-required="true" mp-validator="{required: '请选择'}" ng-options="geoLevel1.id as geoLevel1.name for geoLevel1 in allGeoLevel1">
+            <!--<option ng-value="geoLevel1.id" ng-repeat="geoLevel1 in allGeoLevel1 track by geoLevel1.id">{{geoLevel1.name}}</option>-->
+          </select>
+          <select ng-model="formData.geoLevel2" ng-required="true" mp-validator="{required: '请选择'}" ng-options="geoLevel2.id as geoLevel2.name for geoLevel2 in allGeoLevel2">
+            <!--<option ng-value="geoLevel2.id" ng-repeat="geoLevel2 in allGeoLevel2 track by geoLevel2.id">{{geoLevel2.name}}</option>-->
+          </select>
+          <select ng-model="formData.geoLevel3" ng-options="geoLevel3.id as geoLevel3.name for geoLevel3 in allGeoLevel3">
+            <!--<option ng-value="geoLevel3.id" ng-repeat="geoLevel3 in allGeoLevel3 track by geoLevel3.id">{{geoLevel3.name}}</option>-->
+          </select>
+        </div>
+        <div>
+          <input class="_address-detail" type="text" ng-model="formData.address" placeholder="请输入详细地址" ng-required="true" mp-validator>
+        </div>
+      </div>
+    </div>
+
+    <div class="_row">
+      <label class="_title">负责人姓名</label>
+      <input type="text" ng-model="formData.personInContactName" ng-required="true" mp-validator>
+    </div>
+
+    <div class="_row">
+      <label class="_title">负责人手机号</label>
+      <div class="_phone-wrapper">
+        <input type="number" ng-model="formData.personInContactCellphone" ng-required="true" ng-pattern="'cellphone' | regexp" mp-validator="{pattern: '手机号格式错误'}">
+        <button class="btn btn-primary" mp-send-code-btn="{cellphone: formData.personInContactCellphone, type: 101}" type="button">发送验证码</button>
+      </div>
+    </div>
+
+    <div class="_row">
+      <label class="_title">验证码</label>
+      <input type="number" ng-model="verifyCode" ng-required="true" ng-pattern="/\d{6}/" mp-validator="{'pattern': '6位数字'}">
+    </div>
+
+    <div class="_row">
+      <label class="_title">邮箱</label>
+      <input type="email" ng-model="formData.email" ng-required="true" ng-pattern="'email' | regexp" mp-validator>
+    </div>
+
+    <div class="_row">
+      <label class="_title">组织详情</label>
+      <input type="hidden" ng-model="formData.details" ng-required="true" mp-validator>
+      <div class="_editor-wrapper">
+        <ng-simditor ng-if="showEditor" content="formData.details"></ng-simditor>
+      </div>
+
+    </div>
+
+    <div class="_row">
+      <label class="_title">认证资料：</label>
+      <input type="hidden" ng-model="formData.certificatedInfo" ng-required="true" mp-validator="{required: '请上传相关资料'}">
+      <div class="_certification-wrapper">
+        <p class="_explain" ng-show="formData.$isCampus()">
+          <small>组织在校方的备案文件或组织负责人省份证正反面及学生证正反面</small>
+        </p>
+        <p class="_explain" ng-show="formData.$isSociety()">
+          <small>包含社会统一信用代码的营业执照或证件</small>
+        </p>
+        <div class="_uploader-wrapper">
+          <mp-img-uploader result="certifications[$index]" ng-repeat="certification in certifications">
+            <img ng-if="certifications[$index]" class="_certification-img" ng-src="{{certifications[$index]}}">
+            <button type="button" class="button mp-upload-btn" ng-if="!certifications[$index]" href=""></button>
+          </mp-img-uploader>
+        </div>
+      </div>
+    </div>
+
+    <div class="_row _submit-row">
+      <button class="btn" type="submit">提交</button>
+    </div>
+  </form>
+</div>

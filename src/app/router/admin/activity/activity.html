@@ -1,0 +1,49 @@
+<div class="mp-admin-activity">
+  <table class="mp-table">
+    <thead>
+      <tr>
+        <th>NO</th>
+        <th>活动名称</th>
+        <th>类型</th>
+        <th>负责人</th>
+        <th>活动地点</th>
+        <th>活动开始时间</th>
+        <th>浏览量</th>
+        <th>关注量</th>
+        <th>报名数</th>
+        <th>签到数</th>
+        <th>状态</th>
+        <th>操作</th>
+        <th>热点活动</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in vm.results | activityOperateFilter">
+        <td>{{$index+1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.category.name}}</td>
+        <td>{{item.personInChargeName}}</td>
+        <td>{{item.addressSummary}}</td>
+        <td>{{item.startTime | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+        <td>{{item.stat.viewCount}}</td>
+        <td>{{item.stat.followCount}}</td>
+        <td>{{item.stat.shareCount}}</td>
+        <td>{{item.signInRecords.count}}</td>
+        <td>{{item.status | activityStatusFilter}}</td>
+        <td>
+          <a ui-sref="admin.activity-detail({id:item.id})" ng-show="item.$operateChoosePlat(item.status,'lhcViewInfomations')">查看信息</a>
+          <a ui-sref="admin.activity-detail({id:item.id})" ng-show="item.$operateChoosePlat(item.status,'lhcCheck')">审核活动</a>
+          <a ng-click="vm.cancelActivity()">取消活动</a>
+        </td>
+        <td>
+          <label class="" for="isHotPlat{{$index}}">
+            <input type="checkbox" id="isHotPlat{{$index}}" class="mdl-checkbox__input"
+                   ng-checked="item.hot" ng-click="isMarkHot(item.id,item.hot)">
+            <span class="mdl-checkbox__label">热点活动</span>
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <mp-pagination api="getActivities" class="mp-pagination-activity"  id="mpAdminActivityPagination" params="vm.params" results="vm.results"></mp-pagination>
+</div>

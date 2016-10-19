@@ -1,0 +1,49 @@
+.mp-table{
+  width: 100%;
+  position: relative;
+  border-collapse: collapse;
+  font-size: 13px;
+  background-color: #fff;
+  color: #9f9f9f;
+  thead{
+    padding-bottom: 3px;
+  }
+  tbody{
+    tr:hover {
+      background-color: #ecf8f8;
+    }
+  }
+  th{
+    color: #AEAEAE;
+    position: relative;
+    vertical-align: bottom;
+    text-overflow: ellipsis;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0;
+    height: 48px;
+    font-size: 12px;
+    //padding-bottom: 8px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    //padding: 0 18px;
+    text-align: center;
+  }
+  td{
+    position: relative;
+    vertical-align: top;
+    height: 48px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 12px 12px 0;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  a{
+    color: #9f9f9f;
+  }
+  ._primary{
+    color: $primaryColor;
+    text-decoration: underline;
+  }
+}

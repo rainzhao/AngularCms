@@ -1,0 +1,29 @@
+<div class="mp-admin-org-detail">
+
+  <section>  <!-- 基础信息 -->
+    <div>
+      <label>组织名称</label>
+      <span>{{vm.org.orgName}}</span>
+    </div>
+    <div>
+      <label>负责人</label>
+      <span>{{vm.org.personInChargeName}}</span>
+    </div>
+  </section>
+
+  <section ng-if="vm.$isCheckPage()">     <!-- 审核 -->
+    <h3>审核</h3>
+    <form name="checkForm" ng-submit="vm.doCheck(vm.checkFormData, checkForm)">
+      <input type="radio" ng-value="'SUCCESSFUL'" ng-model="vm.checkFormData.value">通过
+      <input type="radio" ng-value="'FAILED'" ng-model="vm.checkFormData.value">不通过
+      <div>
+        <textarea ng-if="vm.checkFormData.value === 'FAILED'" ng-model="vm.checkFormData.message" placeholder="请输入原因"></textarea>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">提交</button>
+      </div>
+    </form>
+  </section>
+
+
+</div>

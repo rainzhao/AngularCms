@@ -1,0 +1,28 @@
+.mp-register-modal {
+  .modal-dialog {
+    margin-top: 5vh;
+    //width: 90%;
+    .modal-content {
+      border-radius: 3px;
+    }
+  }
+}
+
+.mp-register-modal-content-wrapper {
+  height: 90vh;
+  position: relative;
+  padding-bottom: 2rem;
+  ._close-btn {
+    position: fixed;
+    right: 1rem;
+    margin-top: .5rem;
+  }
+  ._header {
+    text-align: center;
+    margin-bottom: 2em;
+  }
+  ._main {
+    margin-left: 10%;
+  }
+
+}

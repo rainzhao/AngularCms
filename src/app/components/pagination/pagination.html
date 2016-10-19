@@ -1,0 +1,19 @@
+<nav class="mp-pagination" ng-show="total > 0">
+  <ul>
+    <li class="_prev"
+        ng-class="{'disable': page <= 1}"
+        ng-click="prev()">
+      上一页
+    </li>
+    <li ng-repeat="navPage in getPages()"
+        ng-class="{'active': page === navPage}"
+        ng-click="goTo(navPage)">
+      {{navPage}}
+    </li>
+    <li class="_next"
+        ng-class="{'disable': page >= getLastPage()}"
+        ng-click="next()">
+      下一页
+    </li>
+  </ul>
+</nav>

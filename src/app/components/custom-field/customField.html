@@ -1,0 +1,136 @@
+<div class="custom-field-wrap">
+  <div class="mark" ng-show="whetherShow">
+    <div class="_selectPanel">
+      <h3>创建自定义字段</h3>
+      <label class="_youChooseType">
+        <span class="_chooseHeader">可选类型</span>
+        <select ng-options="item as item.name for item in options track by item.id"
+                ng-model="selected"
+                ng-change="selectChange()">
+        </select>
+      </label>
+      <div class="_selectBody">
+        <div class="_selectText" ng-if="selected.value==='TEXT'">
+          <span class="_chooseHeader">名称</span>
+          <label>
+            <input type="text" ng-model="mes.textName">
+          </label>
+          <div class="_select-example">
+            <span class="_chooseHeader">例如</span>
+            <label>
+              留言/兴趣爱好...
+            </label>
+          </div>
+        </div>
+        <div class="_selectRadioBtn" ng-if="selected.value==='RADIO'">
+          <span class="_chooseHeader">名称</span>
+          <label>
+            <input type="text" ng-model="mes.radioName">
+          </label><br>
+          <label>
+            <span class="_chooseHeader">单选框</span>
+            <label>
+              <input type="text" ng-model="mes.radioInputValOne">
+              <input type="radio" name="theSameRadio" checked="checked">
+            </label>
+            <label>
+              <input type="text" ng-model="mes.radioInputValTwo">
+              <input type="radio" name="theSameRadio">
+            </label>
+          </label>
+          <div class="_select-example">
+            <span class="_chooseHeader">例如</span>
+            <label>
+              性别
+            </label><br>
+            <label>
+              <span class="_chooseHeader">单选框</span>
+              <label>
+                男
+                <input type="radio" name="theSameRadio1" checked="checked">
+              </label>
+              <label>
+                女
+                <input type="radio" name="theSameRadio1">
+              </label>
+            </label>
+          </div>
+        </div>
+        <div class="_selectCheckBox" ng-if="selected.value==='CHECKBOX' ">
+          <span class="_chooseHeader">多选框</span>
+          <label>
+            <label>
+              <input type="text"  ng-model="mes.checkBoxName">
+              <input type="checkbox" checked="checked">
+            </label>
+          </label>
+          <div class="_select-example">
+            <span class="_chooseHeader">例如</span>
+            <label>
+              姓名
+              <input type="checkbox" checked="checked">
+            </label>
+          </div>
+        </div>
+        <div class="_selectNumber" ng-if="selected.value === 'NUMBER'">
+          <span class="_chooseHeader">名称</span>
+          <label>
+            <input type="text" ng-model="mes.numberName">
+          </label>
+          <div class="_select-example">
+            <span class="_chooseHeader">例如</span>
+            <label>
+              电话号码/邮编...
+            </label>
+          </div>
+        </div>
+        <div class="_selectDob" ng-if="selected.value === 'DOB'">
+          <span class="_chooseHeader">名称</span>
+          <label>出生日期</label>
+        </div>
+        <div class="_selectSelect" ng-if="selected.value === 'SELECT'">
+          <label>
+            <span class="_chooseHeader">名称</span>
+            <input type="text" ng-model="mes.selectName">
+          </label>
+          <ul>
+            <li ng-repeat="item in mes.selectOptions">
+              <span class="_chooseHeader">下拉选项</span>
+              <label><input ng-model="item.name"></label>
+              <button ng-click="mes.selectOptions.splice($index,1)" aria-label="Remove">X</button>
+            </li>
+            <li>
+              <button ng-click="mes.selectOptions.push({})">添加</button>
+            </li>
+          </ul>
+          <label>
+            <span class="_chooseHeader">最后结果</span>
+            <select ng-model="mySelect" ng-options="item.name for item in mes.selectOptions">
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="buttonPanel">
+        <button ng-click="cancelShow()">取消</button>
+        <button ng-click="uploadMes()">提交</button>
+      </div>
+    </div>
+  </div>
+  <div class="mark" ng-show="deleteShow">
+    <div class="_deletePanel">
+      <h3>删除自定义字段</h3>
+      <div class="_deleteList" mp-nice-scroll>
+        <ul>
+          <li ng-repeat="item in _signUpRequiredFieldIds" ng-show="!item.isDefault">
+            {{item.name}}
+            <span class="deleteBtn" ng-click="deleteFun(item.id)">删除</span>
+          </li>
+        </ul>
+      </div>
+      <div class="delete-bar">
+        <button ng-click="exitDelete()">退出</button>
+      </div>
+    </div>
+  </div>
+  <ng-transclude ng-click="chooseType(access)"></ng-transclude>
+</div>

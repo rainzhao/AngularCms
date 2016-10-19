@@ -1,0 +1,34 @@
+<aside class="mp-side-menu">
+  <section class="_logo-wrapper">
+    <img ng-src="{{'logo.png' | img : true}}">
+  </section>
+  <section ng-if="getUser().$isOrg()" class="_profile-container">
+    <figure class="_avatar">
+      <img ng-src="{{getUser().logoUrl | img : true : 'mascot.png'}}">
+    </figure>
+    <p>{{getUser().orgName}}</p>
+    <p><small>{{getUser().geoLevel1.name + getUser().geoLevel2.name + getUser().geoLevel3.name}}</small></p>
+  </section>
+
+  <section ng-if="getUser().$isAdmin()" class="_profile-container">
+    <figure class="_avatar">
+      <img ng-src="{{'mascot.png' | img : true}}">
+    </figure>
+    <p>绿火柴公益平台</p>
+  </section>
+
+  <nav class="_nav" mp-nice-scroll>
+    <mp-menu-item item="item"></mp-menu-item>
+
+    <ul class="_level1">
+      <li>
+        <a href="" ng-click="$root.logout()">
+          <i class="glyphicon glyphicon-off"></i>
+          <span>退出账号</span>
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+
+</aside>

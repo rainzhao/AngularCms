@@ -1,0 +1,111 @@
+.mp-login {
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(#0c938f, #088b86);
+
+  canvas#loginBg {
+    display: none;
+  }
+
+  ._login-switcher {
+    position: fixed;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: all 2s linear;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  ._content-wrapper {
+   position: absolute;
+   top: 47%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+
+   ._title {
+      margin-bottom: 1rem;
+     //margin-left: -2rem;
+   }
+
+   ._formWrapper {
+     background: #fff;
+     width: 412px;
+     height: 334px;
+     padding: 2rem;
+     position: relative;
+
+     ._form-row {
+       margin-bottom: 1rem;
+       label {
+         display: inline-block;
+         width: 100%;
+       }
+       input {
+         display: inline-block;
+         border: 1px solid #d6d6d6;
+         height: 39px;
+         width: 100%;
+         line-height: 39px;
+         padding: 0 1rem;
+         font-weight: normal;
+       }
+       &:first-child {    /*用户名所在行*/
+         margin-top: 36px;
+       }
+     }
+
+     ._breadcrumb-row {
+       text-align: right;
+       display: flex;
+       justify-content: space-between;
+
+       [for=rememberPassword] {
+         font-weight: normal;
+         &:last-child {
+           position: relative;
+           top: -2px;
+         }
+       }
+
+       ._register {
+         color: $primaryColor;
+       }
+     }
+
+     ._button-row {
+       margin-top: 1.5rem;
+       button {
+         border-radius: 0;
+         background: #25cfbe;
+         color: #fff;
+       }
+     }
+
+     ._btm-row {
+       text-align: right;
+       margin-top: 1.8rem;
+       a {
+         color: #b5b5b5;
+       }
+     }
+
+   }
+
+   ._formWrapper::after {
+     content: '';
+     position: absolute;
+     z-index: -20;
+     width: 530.38px;
+     height: 360px;
+     //background: red;
+     background: linear-gradient(#087874, transparent);
+     top: 0;
+     right: 0;
+     transform-origin: top right;
+     transform: rotate(-39deg);
+   }
+
+  }
+}

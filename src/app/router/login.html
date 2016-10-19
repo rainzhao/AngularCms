@@ -1,0 +1,46 @@
+<div class="mp-login">
+
+  <canvas id="loginBg" mp-canvas-login-bg></canvas>
+
+  <a ng-if="login.role === 'org'" class="_login-switcher" ui-sref="adminLogin">平台登陆</a>
+  <a ng-if="login.role === 'admin'" class="_login-switcher" ui-sref="orgLogin">组织登陆</a>
+
+  <div class="_content-wrapper">
+    <header class="_title">
+      <!--<h3>{{login.title}}</h3>-->
+      <img ng-src="{{'login-logo.png' | img: true }}" alt="">
+    </header>
+    <div class="_formWrapper">
+      <form novalidate name="loginForm" ng-submit="login.submit(login.formData)">
+        <div class="_form-row">
+          <!--<label class="_dt" for="username">用户名：</label>-->
+          <label for="username">
+            <input id="username" placeholder="用户名" type="text" ng-model="login.formData.username" ng-required="true">
+          </label>
+        </div>
+        <div class="_form-row">
+          <!--<label class="_dt" for="password">密码：</label>-->
+          <label for="password">
+            <input id="password" placeholder="密码" type="password" ng-model="login.formData.password" ng-required="true">
+          </label>
+        </div>
+        <div class="_breadcrumb-row">
+          <span>
+            <label for="rememberPassword">
+              <input id="rememberPassword" ng-model="login.rememberPassword" type="checkbox">
+            </label>
+            <label for="rememberPassword">记住我</label>
+          </span>
+          <a ng-if="login.role === 'org'" class="_register" href="" ng-click="login.register()">注册</a>
+        </div>
+        <div class="_button-row">
+          <button type="submit" class="btn btn-block">登陆</button>
+        </div>
+        <div class="_btm-row">
+          <a href="" ng-click="login.forgotPwd()">忘记密码</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

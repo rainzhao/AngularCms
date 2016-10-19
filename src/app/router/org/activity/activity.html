@@ -1,0 +1,48 @@
+<div class="mp-table-panel">
+  <div class="mp-table-header">
+    <h5>活动列表</h5>
+  </div>
+  <div class="mp-table-wrap">
+    <table class="mp-table">
+      <thead>
+      <tr>
+        <th>NO.</th>
+        <th>活动名称</th>
+        <th>类型</th>
+        <th>负责人</th>
+        <th>活动地点</th>
+        <th>活动开始时间</th>
+        <th>浏览量</th>
+        <th>关注量</th>
+        <th>报名数</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in vm.results | activityOperateFilter">
+        <td>{{$index+1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.category.name}}</td>
+        <td>{{item.personInChargeName}}</td>
+        <td>{{item.addressSummary}}</td>
+        <td>{{item.startTime | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{item.stat.viewCount}}</td>
+        <td>{{item.stat.followCount}}</td>
+        <td>{{item.signInRecords.count}}</td>
+        <td>{{item.status | activityStatusFilter}}</td>
+        <td>
+          <a class="_primary" ui-sref="org.activity-update({id: item.id})"  ng-show="item.$operateChoose(item.status,'lhcEdite')">编辑活动</a>
+          <a class="_primary" ng-show="item.$operateChoose(item.status,'lhcDelete')" ng-click="vm.deleteActivity(item.id)">删除活动</a>
+          <a class="_primary" ui-sref="org.activity-detail({id: item.id})"  ng-show="item.$operateChoose(item.status,'lhcDetail')">活动详情</a>
+          <a class="_primary" ng-click="vm.cancelActivity(item.id)"  ng-show="item.$operateChoose(item.status,'lhcCancel')">取消活动</a>
+          <a class="_primary" ui-sref="org.activity-information({id:item.id})"  ng-show="item.$operateChoose(item.status,'lhcSignMes')">报名人员信息</a>
+          <a class="_primary" ui-sref="org.activity-review({id: item.id})" ng-show="item.$operateChoose(item.status,'lhcBackHead')">活动回顾</a>
+          <a class="_primary"  ng-show="item.$operateChoose(item.status,'lhcCancelReason')">取消原因</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <mp-pagination api="getActivities" class="mp-pagination-activity"  id="mpOrgActivityPagination" params="vm.params" results="vm.results"></mp-pagination>
+</div>

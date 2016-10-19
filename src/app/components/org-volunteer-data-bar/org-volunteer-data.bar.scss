@@ -1,0 +1,119 @@
+.mp-org-volunteer-data-bar {
+  display: flex;
+  ._card {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    background: #fff;
+    &:not(:first-child) {
+      margin-left: 1em;
+    }
+
+    ._title {
+      position: absolute;
+      top: .5em;
+      left: .5em;
+      color: #6C6C6C;
+    }
+    ._help {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 30%;
+      height: 100%;
+      //text-align: center;
+
+      ._tag {
+        position: absolute;
+        text-align: right;
+
+        right: 0;
+        top: 0;
+        width: 2.7em;
+        height: 2.7em;
+        padding: .2em .6em;
+        color: #fff;
+
+        cursor: help;
+
+        &:hover {
+          & ~ ._content {
+            transform: scale(1);
+            padding: .5em;
+          }
+        }
+      }
+
+      ._content {
+        cursor: help;
+        position: absolute;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        transition:all .5s;
+        transform: scale(0);
+        transform-origin: top right;
+
+        &:hover {
+          transform: scale(1);
+          padding: .5em;
+        }
+      }
+    }
+    ._num {
+      font-size: 1.7em;
+      color: #6C6C6C;
+      &::after {
+        content: '人';
+        font-size: 1rem;
+        margin-left: .4em;
+        color: #A2A6A9;
+      }
+    }
+
+    &:nth-child(1) {
+      ._help {
+        ._tag {
+          background: linear-gradient(45deg, transparent 50%, rgb(249, 145, 119) 50%);
+        }
+        ._content {
+          background: rgba(249, 145, 119, .7);
+        }
+      }
+    }
+    &:nth-child(2) {
+      ._help {
+        ._tag {
+          background: linear-gradient(45deg, transparent 50%, rgb(44, 181, 171) 50%);
+        }
+        ._content {
+          background: rgba(44, 181, 171, .7);
+        }
+      }
+    }
+    &:nth-child(3) {
+      ._help {
+        ._tag {
+          background: linear-gradient(45deg, transparent 50%, rgb(164, 140, 210) 50%);
+        }
+        ._content {
+          background: rgba(164, 140, 210, .7);
+        }
+      }
+    }
+    &:nth-child(4) {
+      ._help {
+        ._tag {
+          background: linear-gradient(45deg, transparent 50%, rgb(175, 198, 136) 50%);
+        }
+        ._content {
+          background: rgba(175, 198, 136, .7);
+        }
+      }
+    }
+  }
+}

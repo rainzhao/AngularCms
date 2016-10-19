@@ -1,0 +1,34 @@
+.mp-activity-status-bar {
+  display: flex;
+  align-items: center;
+  ._part {
+    flex: 1;
+    height: .8em;
+    background: #F0F2F7;
+
+    &:not(:first-child) {
+      margin-left: 3px;
+    }
+
+    &:first-child {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    &:last-child {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    &.auditing.colored {
+      background: $auditingColor;
+    }
+    &.active.colored {
+      background: $activeColor;
+    }
+    &.onGoing.colored {
+      background: $onGoingColor;
+    }
+    &.finished.colored {
+      background: $finishedColor;
+    }
+  }
+}

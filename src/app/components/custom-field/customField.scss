@@ -1,0 +1,154 @@
+.custom-field-wrap{
+  .mark{
+    z-index: 10;
+    background: rgba(0,0,0,0.3);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    @mixin commonH3Style{
+      height: 50px;
+      width: 100%;
+      font-weight: normal;
+      line-height: 50px;
+      background-color: $primaryColor;
+      color: $whiteColor;
+      margin: 0;
+      text-align: center;
+    }
+    ._selectPanel{
+      z-index: 11;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%,-50%,0);
+      min-width: 360px;
+      min-height: 300px;
+      background-color: $whiteColor;
+      text-align: left;
+      padding-bottom: 52px;
+      color: #7d7d7d;
+      font-weight: normal;
+      label{
+        font-weight: normal;
+      }
+      h3{
+        @include commonH3Style;
+      }
+      input{
+        height: 26px;
+        line-height: 26px;
+        padding: 4px 4px;
+      }
+      button{
+        width: 60px;
+        height: 30px;
+        line-height: 30px;
+        border: none;
+        background-color: $primaryColor;
+        color: $whiteColor;
+
+      }
+      ._youChooseType{
+        margin-left: 10px;
+      }
+      ._chooseHeader{
+        display: inline-block;
+        min-width: 70px;
+      }
+      @mixin commonButton{
+        input{
+          width: 60px;
+          height: 26px;
+          line-height: 26px;
+          vertical-align: middle;
+          margin: 0px;
+        }
+      }
+      ._selectRadioBtn{
+        @include commonButton;
+      }
+      ._selectCheckBox{
+        @include commonButton;
+      }
+      ._select-example{
+        background-color: #ddd;
+        margin-left: -10px;
+        padding-left: 10px;
+        label{
+          margin: 0;
+        }
+      }
+      .buttonPanel{
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translate3d(-50%,-50%,0);
+        button{
+          width: 60px;
+          height: 30px;
+          line-height: 30px;
+          border: none;
+          background-color: $primaryColor;
+          color: $whiteColor;
+        }
+      }
+      ._selectBody{
+        padding-left: 10px;
+      }
+    }
+    ._deletePanel{
+      z-index: 11;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%,-50%,0);
+      min-width: 360px;
+      background-color: $whiteColor;
+      text-align: left;
+      color: #7d7d7d;
+      font-weight: normal;
+      h3{
+        @include commonH3Style;
+      }
+      ._deleteList{
+        overflow-y: scroll;
+        max-height: 200px;
+        ul{
+          li{
+            padding-left: 10px;
+            border-bottom: 1px solid #eee;
+            height: 50px;
+            line-height: 50px;
+          }
+        }
+        .deleteBtn{
+          float: right;
+          margin-right: 20px;
+          height: 30px;
+          line-height: 30px;
+          display: inline-block;
+          background-color: $primaryColor;
+          color: $whiteColor;
+          padding: 0 8px;
+          cursor: pointer;
+          margin-top: 10px;
+        }
+      }
+      .delete-bar{
+        width: 100%;
+        text-align: right;
+        button{
+          width: 60px;
+          height: 30px;
+          line-height: 30px;
+          border: none;
+          background-color: $primaryColor;
+          color: $whiteColor;
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+}

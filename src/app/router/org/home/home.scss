@@ -1,0 +1,319 @@
+.mp-org-home {
+
+  /* 正常面板 */
+  ._home-wrapper {
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+    ._common-card {
+      margin-bottom: 1em;
+      ._header {
+        background: #FAFAFA;
+        padding: 1em;
+        color: #B1B1B1;
+      }
+      ._article {
+        background: #fff;
+        padding: 1em;
+      }
+    }
+
+    ._top {
+      width: 100%;
+      margin-bottom: 1em;
+      display: flex;
+      ._card {
+        flex: 1;
+        background: #fff;
+        padding: 1em 2em;
+        display: flex;
+        flex-direction: row;
+        //justify-content: center;
+        align-items: center;
+        &:not(:first-child) {
+          margin-left: 1.5em;
+        }
+        ._data {
+          margin-left: .6em;
+          :nth-child(1) {
+            font-size: 1.5em;
+            color: #6C6C6C;
+          }
+          :nth-child(2) {
+            color: #6C6C6C;
+          }
+        }
+      }
+    }
+
+    ._left {
+      width: 60%;
+      padding-right: 1em;
+      margin-bottom: 4em;
+      background-clip: content-box;
+      ._chart-wrapper {
+        ._total-wrapper {
+          margin-top: 1em;
+          display: flex;
+          justify-content: center;
+          ._card {
+            margin: 1em;
+            text-align: center;
+            position: relative;
+            p {
+              margin-bottom: 0;
+            }
+            label {
+              color: #898989;
+              font-weight: normal;
+              margin-bottom: 0;
+            }
+
+            &:not(:last-child)::after {
+              content: '';
+              position: absolute;
+              background: #B1B1B1;
+              height: 90%;
+              width: 1px;
+              top: 5%;
+              right: -1em;
+            }
+
+            &._activity {
+              p {
+                color: #63CCC5;
+              }
+            }
+            &._hour {
+              p {
+                color: #AFC583;
+              }
+            }
+            &._volunteer {
+              p {
+                color: #E17176;
+              }
+            }
+          }
+        }
+      }
+      ._progress-wrapper {
+        ._status-def-wrapper {
+          //margin-bottom: 1em;
+          text-align: right;
+          ._status {
+            color: #979797;
+            margin-left: .8em;
+            &::before {
+              content: '';
+              display: inline-block;
+              width: 1em;
+              height: 1em;
+              position: relative;
+              top: 2px;
+              left: -4px;
+            }
+            &._auditing {
+              &::before {
+                background: $auditingColor;
+              }
+            }
+            &._on-going {
+              &::before {
+                background: $onGoingColor;
+              }
+            }
+            &._active {
+              &::before {
+                background: $activeColor;
+              }
+            }
+            &._finished {
+              &::before {
+                background: $finishedColor;
+              }
+            }
+          }
+        }
+        ._status-wrapper {
+          &:not(:last-child) {
+            margin-bottom: 1em;
+          }
+          ._status-row {
+            display: flex;
+            align-items: center;
+            ._status-bar-wrapper {
+              margin-right: 1em;
+              flex: 1;
+              height: 100%;
+              line-height: 100%;
+            }
+            .btn {
+              background: #F0F2F7;
+              color: #B1B1B1;
+            }
+          }
+        }
+
+      }
+    }
+
+    ._right {
+      width: 40%;
+      margin-bottom: 4em;
+      ._activity-wrapper {
+        ._article {
+          min-height: 6em;
+        }
+        ._activity-list {
+          li {
+            background: #F3F3F3;
+            color: #6C6C6C;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            img {
+              width: 3em;
+              margin-right: .5em;
+            }
+            &:not(:last-child) {
+              margin-bottom: 1em;
+            }
+          }
+        }
+      }
+      ._help-wrapper {
+        ._faq {
+          border-radius: 5px;
+          padding: 1em;
+
+          ._question {
+            color: #fff;
+            background: #000;
+            border-radius: 5px;
+            display: inline-block;
+            padding: .4em 1em;
+            font-weight: normal;
+            margin-bottom: 1em;
+          }
+          ._answer {
+
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 1em;
+          }
+
+          &:nth-child(odd) {
+            background: #DAEDF6;
+            ._question {
+              background: #9BCCE2;
+            }
+            ._answer {
+              color: #9BCCE2;
+            }
+          }
+
+          &:nth-child(even) {
+            background: #DFF0D9;
+            ._question {
+              background: #9AD6AE;
+            }
+            ._answer {
+              color: #9AD6AE;
+            }
+          }
+
+        }
+      }
+    }
+
+  }
+
+  /* 审核中 */
+  ._checking-wrapper {
+    &::before {
+      content: '';
+      display: block;
+      height: 3em;
+      width: 100%;
+      background: #FAFAFA;
+    }
+    background: #fff;
+    height: 50vh;
+    ._status-wrapper {
+      border: 5px dashed #F1F2F7;
+      margin: 4em 3em;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 30vh;
+
+      ._status {
+        background: $primaryColor;
+        padding: .5em 1.8em;
+        color: #fff;
+        margin-bottom: 1em;
+      }
+
+      ._tip {
+        color: #929292;
+      }
+    }
+  }
+
+  /* 审核未通过 */
+  ._profile-wrapper {
+    display: flex;
+    min-height: calc(100vh - #{$headerHeight} - 24px);
+    flex-direction: column;
+    ._status-wrapper {
+      margin-bottom: 2rem;
+      ._status {
+        color: #fff;
+        padding: .8em;
+        &._error {
+          background: $errorColor;
+        }
+      }
+      ._reason {
+        padding: .8em;
+        color: #7d7d7d;
+        background: #fff;
+      }
+    }
+    ._org-profile-panel-wrapper {
+      padding-left: 20%;
+      flex: 1;
+      background: #fff;
+      text-align: left;
+      ._title-wrapper {
+        margin-left: -25%;
+        text-align: left;
+        padding: .3rem 1rem;
+        background: #FAFAFA;
+        ._title {
+          color: #B1B1B1;
+        }
+      }
+
+      .mp-org-profile-panel {
+        text-align: left;
+        display: inline-block;
+        margin-top: 2rem;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        height: 8em;
+      }
+    }
+  }
+
+}
+

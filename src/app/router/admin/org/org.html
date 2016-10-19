@@ -1,0 +1,21 @@
+<div class="mp-admin-org">
+  <table class="mp-table">
+    <thead>
+      <tr>
+        <th>组织名称</th>
+        <th>负责人</th>
+        <th>审核状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="org in vm.orgs | enhanceOrg">
+        <td>{{org.orgName}}</td>
+        <td>{{org.personInChargeName}}</td>
+        <td>{{org.status | orgStatusText}}</td>
+        <td><a href="" ng-if="org.$checking()" ui-sref="admin.org-check({id: org.id})">审核</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <mp-pagination api="getOrgs" id="adminActivity" results="vm.orgs"></mp-pagination>
+</div>

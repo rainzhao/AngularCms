@@ -1,0 +1,151 @@
+<div class="mp-org-home">
+
+  <div class="_home-wrapper" ng-if="$root.getUser().$checkPass()">     <!-- 审核通过 -->
+
+    <div class="_top">
+      <div class="_card">
+        <img ng-src="{{'home/concern.png' | img: true}}">
+        <div class="_data">
+          <div>{{$root.getUser().stat.followCount}}</div>
+          <div>关注人数</div>
+        </div>
+
+      </div>
+      <div class="_card">
+        <img ng-src="{{'home/activity.png' | img: true}}">
+        <div class="_data">
+          <div>{{$root.getUser().stat.activityCount}}</div>
+          <div>发布活动</div>
+        </div>
+      </div>
+      <div class="_card">
+        <img ng-src="{{'home/time.png' | img: true}}">
+        <div class="_data">
+          <div>{{$root.getUser().stat.activityMinutes / 60}}</div>
+          <div>活动小时</div>
+        </div>
+
+      </div>
+      <div class="_card">
+        <img ng-src="{{'home/volunteer.png' | img: true}}">
+        <div class="_data">
+          <div>{{$root.getUser().stat.volunteerCount}}</div>
+          <div>输出志愿者</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="_left">
+      <section class="_common-card _chart-wrapper">
+        <header class="_header">
+          <span>活动</span>
+        </header>
+        <article class="_article">
+          <canvas id="line" class="chart chart-line"
+                  chart-data="vm.chart.data"
+                  chart-labels="vm.chart.labels"
+                  chart-series="vm.chart.series"
+                  chart-colors="vm.chart.colors"
+                  chart-click="vm.chart.onClick">
+          </canvas>
+          <div class="_total-wrapper">
+            <section class="_card _activity">
+              <p>{{vm.chart.total[0]}}</p>
+              <label>累计所有活动</label>
+            </section>
+            <section class="_card _hour">
+              <p>{{vm.chart.total[1]}}</p>
+              <label>累计小时数</label>
+            </section>
+            <section class="_card _volunteer">
+              <p>{{vm.chart.total[2]}}</p>
+              <label>输出志愿者人数</label>
+            </section>
+          </div>
+        </article>
+
+      </section>
+      <section class="_common-card _progress-wrapper">
+        <header class="_header">
+          <span>活动进度</span>
+        </header>
+        <article class="_article">
+          <section class="_status-def-wrapper">
+            <div>
+              <span class="_status _auditing">审核中</span>
+              <span class="_status _on-going">活动中</span>
+            </div>
+            <div>
+              <span class="_status _active">报名中</span>
+              <span class="_status _finished">已结束</span>
+            </div>
+          </section>
+          <ul>
+            <li ng-repeat="activity in vm.activities" class="_status-wrapper">
+              <p>{{activity.name}}</p>
+              <div class="_status-row">
+                <div class="_status-bar-wrapper">
+                  <mp-activity-status-bar status="activity.status"></mp-activity-status-bar>
+                </div>
+                <button class="btn" ui-sref="org.activity-detail({id: activity.id})">详情</button>
+              </div>
+            </li>
+          </ul>
+        </article>
+      </section>
+    </div>
+
+    <div class="_right">
+      <section class="_common-card _activity-wrapper">
+        <header class="_header">
+          <span>待审核活动</span>
+        </header>
+        <article class="_article">
+          <ul class="_activity-list">
+            <li ng-repeat="activity in vm.activities2bCheck" ui-sref="org.activity-detail({id: activity.id})">
+              <img ng-src="{{activity.coverThumbUrl | img: true}}">
+              <span>{{activity.name}}</span>
+            </li>
+          </ul>
+        </article>
+      </section>
+      <section class="_common-card _help-wrapper">
+        <header class="_header">
+          <span>常见问题帮助</span>
+        </header>
+        <article class="_article">
+          <div class="_faq" ng-repeat="faq in vm.faqs">
+            <label class="_question">{{faq.question}}</label>
+            <div class="_answer" ng-bind-html="faq.answer | trust"></div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+  </div>
+
+  <div class="_checking-wrapper" ng-if="$root.getUser().$checking()">  <!-- 审核中 -->
+    <div class="_status-wrapper">
+      <span class="_status">审核中</span>
+      <p class="_tip">请耐心等待，详情可致电400-3023-2342</p>
+    </div>
+  </div>
+
+  <div class="_profile-wrapper" ng-if="$root.getUser().$checkFailed()">   <!--审核未通过-->
+    <section class="_status-wrapper">
+      <div class="_status _error">
+        审核未通过&nbsp;&nbsp;&nbsp;&nbsp;原因：{{$root.getUser().remark}}
+      </div>
+      <div class="_reason">
+        由于您提交的资料存在问题，请核对后重新提交
+      </div>
+    </section>
+    <section class="_org-profile-panel-wrapper">
+      <header class="_title-wrapper">
+        <h5 class="_title">申请详情</h5>
+      </header>
+      <mp-org-profile-panel type="modify" success="vm.modifyProfileSuccess(data)"></mp-org-profile-panel>
+    </section>
+  </div>
+
+</div>

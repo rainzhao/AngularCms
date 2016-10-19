@@ -1,0 +1,27 @@
+.mp-autocomplete-wrapper {
+  position: relative;
+  ._autocomplete-helper {
+    position: absolute;
+    z-index: 10;
+    border: 1px solid #C7CACE;
+    width: 100%;
+    margin-top: 1px;
+    background: #fff;
+    //min-height: 3em;
+    li {
+      cursor: pointer;
+      padding: .3em .3em;
+      &:hover {
+        background: #eee;
+      }
+    }
+  }
+  .mp-loading-spanner-a {
+    top: auto;
+    margin-top: 1em;
+    z-index: 11;
+    .line {
+      height: 1em;
+    }
+  }
+}

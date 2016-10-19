@@ -1,0 +1,22 @@
+<select ng-change="level1Change()" ng-model="geoLevel1" ng-options="item.id as item.name for item in level1">
+  <option value="">请选择</option>
+  <!--<option ng-repeat="item in level1" value="{{item.id}}">{{item.name}}</option>-->
+
+</select>
+<select ng-change="level2Change()" ng-model="geoLevel2" ng-options="item.id as item.name for item in level2">
+  <option value="">请选择</option>
+  <!--<option ng-repeat="item in level2" value="{{item.id}}">{{item.name}}</option>-->
+</select>
+<select  ng-show="level3Show" ng-model="geoLevel3" ng-options="item.id as item.name for item in level3">
+  <option value="">请选择</option>
+  <!--<option ng-repeat="item in level3" value="{{item.id}}">{{item.name}}</option>-->
+</select>
+
+
+
+
+
+
+
+
+

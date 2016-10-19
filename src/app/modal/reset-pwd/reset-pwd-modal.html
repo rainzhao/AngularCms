@@ -1,0 +1,48 @@
+<div class="mp-reset-pwd-modal-content-wrapper">
+  <button class="btn _close-btn" ng-click="closeModal()">关闭</button>
+  <header class="_header">
+    <h3>重置密码</h3>
+  </header>
+  <article class="_main">
+    <form name="form" novalidate ng-submit="submit(formData, form)">
+      <div class="_row">
+        <label for="username">用户名</label>
+        <input id="username" type="text" ng-model="formData.username" ng-required="true" mp-validator>
+      </div>
+      <div class="_row">
+        <label for="pwd">新密码</label>
+        <input id="pwd" type="password" ng-model="formData.newPassword" ng-required="true" mp-validator>
+      </div>
+      <div class="_row">
+        <label for="cfmPwd">确认密码</label>
+        <input id="cfmPwd" type="password" ng-model="confirmPassword" ng-required="true" mp-same-as="formData.newPassword" mp-validator>
+      </div>
+      <div class="_row">
+        <label for="cellphone">手机号</label>
+        <div class="_phone-wrapper">
+          <input id="cellphone"
+                 type="number"
+                 ng-model="formData.cellphone"
+                 ng-pattern="'cellphone' | regexp"
+                 ng-required="true"
+                 mp-validator="{pattern: '手机号格式错误'}"
+                 wrapper="._row">
+          <button class="btn btn-primary"
+                  type="button"
+                  mp-send-code-btn="{cellphone: formData.cellphone, type: 102}">发送验证码</button>
+        </div>
+
+      </div>
+      <div class="_row">
+        <label for="vrfCode">验证码</label>
+        <input id="vrfCode" type="number" ng-model="formData.code" ng-required="true" ng-pattern="/\d{6}/" mp-validator="{'pattern': '6位数字'}">
+      </div>
+      <div class="_row _submit-row">
+        <button type="submit" class="btn mp-submit-btn">提交</button>
+      </div>
+    </form>
+  </article>
+  <footer>
+
+  </footer>
+</div>

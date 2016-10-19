@@ -1,0 +1,529 @@
+<div class="_activity-panel" ng-class="vm.panelLeft == true?'acLeft': ''">
+  <div class="_activity-detail-panel" ng-show="vm.panelLeft">
+    <div class="header">
+      <div class="innerheader">
+        <span>{{vm.lhcActivityPublishData.name}}</span>
+      </div>
+    </div>
+    <div class="_active-status">
+      <ul>
+        <li>活动状态: <span class="primaryColorStyle">{{vm.lhcActivityPublishData.status | activityStatusFilter}}</span></li>
+        <li>活动开始时间: {{vm.lhcActivityPublishData.startTime | date: 'yyyy-MM-dd HH:mm'}}</li>
+      </ul>
+    </div>
+    <div class="_active-signUpQrcode" ng-show="vm.lhcActivityPublishData.checkInQrCodeUrl == undefined?false:true">
+      <div class="_active-signUpQrcodeInner">
+        <div class="_signUpQrcodeImg">
+          <div class="_checkInImg">
+            <img ng-src="{{vm.lhcActivityPublishData.checkInQrCodeUrl}}">
+          </div>
+          <div class="_checkInTimeEffect">
+            <p>签到时效</p>
+            <p>{{vm.lhcActivityPublishData.checkInStartTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+            <p>{{vm.lhcActivityPublishData.checkInEndTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <span class="downloadBtn" ng-click="vm.getQrcode(2)">下载</span>
+          </div>
+        </div>
+      </div>
+      <div class="_active-signUpQrcodeInner">
+        <div class="_signUpQrcodeImg">
+          <div class="_discussImg">
+            <mp-img-uploader ratio="1 / 1" result="vm.lhcActivityPublishData.discussQrCodeUrl">
+              <img ng-src="{{vm.lhcActivityPublishData.discussQrCodeUrl}}" ng-show="vm.lhcActivityPublishData.discussQrCodeUrl!=''?true:false;">
+              <div class="_active-discuss-picture" ng-show="vm.lhcActivityPublishData.discussQrCodeUrl==''?true:false;"></div>
+            </mp-img-uploader>
+          </div>
+          <div class="_checkInTimeEffect">
+            <p>讨论组二维码</p>
+            <span class="downloadBtn" ng-click="vm.uploadDiscussQrCode()">上传</span>
+            <span class="downloadBtn" ng-click="vm.getQrcode(3)">下载</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mp-org-activity-detail">
+    <form name="mpFormActivity" novalidate>
+      <!--活动名称-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          活动名称
+        </div>
+        <div class="mp-active-form-input">
+          <input type="text" class="_common-input-width"
+                 placeholder="不超过39个字" name="activePublishName"
+                 mp-validator="{required: '请输入活动名称！'}" ng-required="true"
+                 ng-model="vm.lhcActivityPublishData.name">
+          <span class="_error"></span>
+        </div>
+      </div>
+      <!--活动地点-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          活动地点
+        </div>
+        <div class="mp-active-form-select _common-input-width">
+          <mp-geo-pick geo-level1="vm.lhcActivityPublishData.geoLevel1"
+                       geo-level2="vm.lhcActivityPublishData.geoLevel2"
+                       geo-level3="vm.lhcActivityPublishData.geoLevel3"></mp-geo-pick>
+        </div>
+      </div>
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-input _active-form-input-detail-address">
+          <input type="text" class="_common-input-width" placeholder="请填写详细地址"
+                 ng-model="vm.lhcActivityPublishData.address" name="acitivityDetailAddress"
+                 mp-validator="{required: '请填写详细地址！'}" ng-required="true" >
+        </div>
+      </div>
+      <!--负责人信息-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          活动负责人
+        </div>
+        <div class="_active-charge-input">
+          <input type="text" ng-model="vm.lhcActivityPublishData.personInChargeName"
+                 name="activePublishChargePeople" ng-required="true"
+                 mp-validator="{required: '请输入活动负责人姓名！'}">
+        </div>
+        <span class="_error"></span>
+      </div>
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          手机号码
+        </div>
+        <div class="_active-charge-input">
+          <input type="text" ng-model="vm.lhcActivityPublishData.personInChargeCellphone"
+                 mp-validator="{required: '请输入手机号码！'}" ng-required="true" name="activityPhoneNumber"
+                 ng-pattern="/(13\d|14[57]|15[^4,\D]|17[678]|18\d)\d{8}|170[059]\d{7}/">
+        </div>
+      </div>
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          固定电话
+        </div>
+        <div class="_active-charge-input">
+          <input type="text" ng-model="vm.lhcActivityPublishData.fixedPhone"
+                 mp-validator="{require: '请输入固定电话号码'}" ng-required="true" name="activityFixedPhone"
+                 ng-pattern="/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/">
+        </div>
+      </div>
+      <!--活动类型-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          活动类型
+        </div>
+        <div class="mp-active-form-radio">
+          <div ng-repeat="item in vm.lhcActivityStyle.categoryId" class="_active-publish-type">
+            <input type="radio" id="activeType{{$index}}" name="activeType"
+                   ng-value="item.id" ng-checked="$index==0?true:false"
+                   ng-model="vm.lhcActivityPublishData.categoryId">
+            <label for="activeType{{$index}}"><span></span><span>{{item.name}}</span></label>
+          </div>
+        </div>
+      </div>
+      <!--活动费用-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          费用
+        </div>
+        <div class="mp-active-form-radio">
+          <input type="radio" id="expenseNo" name="expense" ng-model="vm.lhcActivityStyle.expense"
+                 ng-value="false" ng-checked="true">
+
+          <label for="expenseNo"><span></span><span>免费</span></label>
+          <input type="radio" id="expenseYes" name="expense" ng-model="vm.lhcActivityStyle.expense"
+                 ng-value="true" >
+          <label for="expenseYes"><span></span><span>需要费用</span></label>
+        <span ng-if="vm.lhcActivityStyle.expense">
+          <input type="text" ng-model="vm.lhcActivityPublishData.expense"
+                 ng-pattern="/^[0-9]*$/" ng-required="true" mp-validator="{required:'请输入'}">&nbsp;&nbsp;元
+        </span>
+        </div>
+      </div>
+      <!--活动性质-->
+      <div class="_active-form-property-row">
+        <div class="mp-active-form-name">
+          活动性质
+        </div>
+        <div class="_active-form-property-item">
+          <div class="_active-form-item-tag" ng-repeat="item in vm.lhcActivityStyle.tags"
+               ng-show="item.sort!= -1">
+            <input id="activeTags{{$index}}" type="checkbox" ng-change="vm.addErrorTag(vm.lhcActivityStyle.tags)"
+                   ng-model="item.$checked" name="activityProperty" ng-checked="item.$checked">
+            <label for="activeTags{{$index}}">
+              <div class="_active-form-tag-header">
+                {{item.name}}
+              </div>
+              <div class="_active-form-tag-icon">
+                <img ng-src="{{item.imageUrl}}">
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+      <!--是否支持现场报名-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          现场报名
+        </div>
+        <div class="mp-active-form-radio">
+          <input type="radio" id="noSupportSite" name="supportSite" ng-model="vm.lhcActivityPublishData.offlineSignUp"
+                 ng-value="false" ng-checked="true" >
+          <label for="noSupportSite"><span></span><span>不支持</span></label>
+          <input type="radio" id="supportSite" name="supportSite" ng-model="vm.lhcActivityPublishData.offlineSignUp"
+                 ng-value="true" >
+          <label for="supportSite"><span></span><span>支持</span></label>
+        </div>
+      </div>
+      <!--活动时间(不支持现场报名)-->
+      <div ng-show="!vm.lhcActivityPublishData.offlineSignUp">
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+            活动时间
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.startDate"
+                     is-open="vm.startTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-change="vm.activeDateChange()"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.startTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick" style="position: relative;">
+            <div uib-timepicker ng-model="vm.startTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(活动开始时间)</span>
+            <span class="_timer-error">{{vm.startTimeErrorMes}}</span>
+          </div>
+        </div><!--活动开始时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.endDate"
+                     is-open="vm.endTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-change="vm.activeDateChange()"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.endTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.endTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(活动结束时间)</span>
+            <span class="_timer-error">{{vm.endTimeErrorMes}}</span>
+          </div>
+        </div><!--活动结束时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.signUpDeadDate"
+                     is-open="vm.signUpDeadlinePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-required="true" close-text="关闭"
+                     ng-change="vm.activeDateChange()"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.signUpDeadlineOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.signUpDeadline"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(报名截止时间)</span>
+            <span class="_timer-error">{{vm.signUpDeadlineErrorMes}}</span>
+          </div>
+
+        </div><!--报名截止时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+            签到时间
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.checkInStartDate"
+                     is-open="vm.checkInStartTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-required="true" close-text="关闭"
+                     ng-change="vm.activeDateChange()"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.checkInStartTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.checkInStartTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(签到开始时间)</span>
+            <span class="_timer-error">{{vm.checkInStartTimeErrorMes}}</span>
+          </div>
+
+        </div><!--签到开始时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <!--<div class="_active-timer-readonly">
+            {{vm.lhcActivityPublishData.endTime | date: "yyyy-MM-dd HH:mm"}}
+          </div>-->
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control" readonly="readonly"
+                     uib-datepicker-popup ng-model="vm.endDate"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" disabled="disabled" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="_active-timer-readonly-wrap">
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"hh"}}</span>:
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"mm"}}</span>
+            <span class="_active-timer-readonly-btn">{{vm.endTime | mpTimerStatusFilter}}</span>
+            <span class="_active-timer-readonly-detail">(签到结束时间)</span>
+          </div>
+
+        </div><!--签到结束时间-->
+      </div>
+      <!--活动时间(支持现场报名)-->
+      <div ng-show="vm.lhcActivityPublishData.offlineSignUp">
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+            活动时间
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.startDate"
+                     is-open="vm.startTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-change="vm.activeDateChange()"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.startTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.startTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(活动开始时间)</span>
+            <span class="_timer-error">{{vm.startTimeErrorMes}}</span>
+          </div>
+        </div><!--活动开始时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.endDate"
+                     is-open="vm.endTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-change="vm.activeDateChange()"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.endTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.endTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(活动结束时间)</span>
+            <span class="_timer-error">{{vm.endTimeErrorMes}}</span>
+          </div>
+
+        </div><!--活动结束时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <!--<div class="_active-timer-readonly">
+            {{vm.lhcActivityPublishData.endTime | date: "yyyy-MM-dd HH:mm"}}
+          </div>-->
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control" readonly="readonly"
+                     uib-datepicker-popup ng-model="vm.endDate"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" disabled="disabled" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="_active-timer-readonly-wrap">
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"hh"}}</span>:
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"mm"}}</span>
+            <span class="_active-timer-readonly-btn">{{vm.endTime | mpTimerStatusFilter}}</span>
+            <span class="_active-timer-readonly-detail">(报名截止时间)</span>
+          </div>
+
+        </div><!--报名截止时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+            签到时间
+          </div>
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control"
+                     uib-datepicker-popup ng-model="vm.checkInStartDate"
+                     is-open="vm.checkInStartTimePopup.opened" datepicker-options="vm.dateOptions"
+                     ng-required="true" close-text="关闭"
+                     ng-change="vm.activeDateChange()"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.checkInStartTimeOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="mp-active-form-timepick">
+            <div uib-timepicker ng-model="vm.checkInStartTime"
+                 ng-change="vm.changed()" hour-step="vm.hstep"
+                 minute-step="vm.mstep" show-meridian="vm.ismeridian">
+            </div>
+            <span class="_active-timer-detail">(签到开始时间)</span>
+            <span class="_timer-error">{{vm.checkInStartTimeErrorMes}}</span>
+          </div>
+
+        </div><!--签到开始时间-->
+        <div class="_active-form-timepick-row">
+          <div class="mp-active-form-name">
+
+          </div>
+          <!--<div class="_active-timer-readonly">
+            {{vm.lhcActivityPublishData.endTime | date: "yyyy-MM-dd HH:mm"}}
+          </div>-->
+          <div class="mp-active-form-datepick">
+            <p class="input-group">
+              <input type="text" class="form-control" readonly="readonly"
+                     uib-datepicker-popup ng-model="vm.endDate"
+                     ng-required="true" close-text="关闭"
+                     current-text="今天" clear-text="清空"/>
+          <span class="input-group-btn">
+            <button type="button" disabled="disabled" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+          </div>
+          <div class="_active-timer-readonly-wrap">
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"hh"}}</span>:
+            <span class="_active-timer-readonly" disabled="disabled">{{vm.endTime | date:"mm"}}</span>
+            <span class="_active-timer-readonly-btn">{{vm.endTime | mpTimerStatusFilter}}</span>
+            <span class="_active-timer-readonly-detail">(签到结束时间)</span>
+          </div>
+
+        </div><!--签到结束时间-->
+      </div>
+      <!--报名人数限制-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          报名人数限制
+        </div>
+        <div class="mp-active-form-radio">
+          <input type="radio" id="peopleNoLimit" name="countLimit" ng-model="vm.lhcActivityStyle.countLimit"
+                 ng-value="false" ng-checked="true" >
+          <label for="peopleNoLimit"><span></span><span>不限制</span></label>
+          <input type="radio" id="peopleLimit" name="countLimit" ng-model="vm.lhcActivityStyle.countLimit"
+                 ng-value="true" >
+          <label for="peopleLimit"><span></span><span>限制</span></label>
+          <span ng-if="vm.lhcActivityStyle.countLimit">
+            <input type="text" ng-model="vm.lhcActivityPublishData.countLimit"
+                   ng-pattern="/^[0-9]*$/" ng-required="true" mp-validator="{required: '请输入'}">&nbsp;&nbsp;人
+          </span>
+        </div>
+      </div>
+      <!--报名方式-->
+      <div class="mp-active-form-row">
+        <div class="mp-active-form-name">
+          报名方式
+        </div>
+        <div class="_active-form-checkbox">
+          <label for="_active-checkbox-name{{$index}}" ng-repeat="item in vm.lhcActivityStyle.signUpRequiredFieldIds" ng-show="item.name!='留言'">
+            <input type="checkbox" value="姓名" id="_active-checkbox-name{{$index}}"
+                   ng-true-value="{{item.isDefault?item.id:null}}" ng-model="item.$checked"
+                   ng-checked="item.isDefault" ng-disabled="item.isDefault">
+            <img ng-src="{{item.imgUrl}}" alt="">
+            <span>{{item.name}}</span>
+          </label>
+        </div>
+        <custom-field access="add">
+          <button class="btn btn-primary">添加自定义字段</button>
+        </custom-field>
+        <custom-field access="delete">
+          <button class="btn btn-primary">删除自定义字段</button>
+        </custom-field>
+      </div>
+      <!--图片上传-->
+      <div class="mp-active-form-row _active-add-picture-row">
+        <div class="mp-active-form-name _active-add-picture-name">
+          封面图片
+        </div>
+        <div class="_active-add-picture">
+          <mp-img-uploader ratio="4 / 3" result="vm.lhcActivityPublishData.coverUrl">
+            <img ng-src="{{vm.lhcActivityPublishData.coverUrl}}" ng-show="vm.lhcActivityPublishData.coverUrl!=''?true:false;">
+            <div class="_active-big-picture" ng-show="vm.lhcActivityPublishData.coverUrl==''?true:false;"></div>
+          </mp-img-uploader>
+
+          <mp-img-uploader ratio="1 / 1" result="vm.lhcActivityPublishData.coverThumbUrl">
+            <img ng-src="{{vm.lhcActivityPublishData.coverThumbUrl}}" ng-show="vm.lhcActivityPublishData.coverThumbUrl!=''?true:false;">
+            <div class="_active-small-picture" ng-show="vm.lhcActivityPublishData.coverThumbUrl==''?true:false;"></div>
+          </mp-img-uploader>
+
+          <mp-img-uploader ratio="1 / 1" result="vm.lhcActivityPublishData.discussQrCodeUrl">
+            <img ng-src="{{vm.lhcActivityPublishData.discussQrCodeUrl}}" ng-show="vm.lhcActivityPublishData.discussQrCodeUrl!=''?true:false;">
+            <div class="_active-discuss-picture" ng-show="vm.lhcActivityPublishData.discussQrCodeUrl==''?true:false;"></div>
+          </mp-img-uploader>
+        </div>
+      </div>
+      <!--活动详情-->
+      <div class="_active-form-detail-row clearfix">
+        <div class="mp-active-form-name">
+          活动详情
+        </div>
+        <div>
+          <ng-simditor content="vm.lhcActivityPublishData.details"></ng-simditor>
+        </div>
+      </div>
+      <!--活动创建或提交-->
+      <div class="_active-submit-button">
+        <button ng-click="vm.submitActivity()">保存</button>
+        <button ng-disabled="!vm.formValid(mpFormActivity,vm.lhcActivityPublishData)" ng-click="vm.submitAduit()">提交审核</button>
+      </div>
+    </form>
+  </div>
+  <div  ng-class="vm.activeStyleDeal()"
+  ng-click="vm.showMesNotAllowOperate()">
+
+  </div>
+</div>

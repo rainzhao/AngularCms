@@ -1,0 +1,44 @@
+<div class="activeAuditWrap">
+  <p>活动负责人姓名：{{vm.data.personInChargeName}}</p>
+  <p>活动负责人手机号：{{vm.data.personInChargeCellphone}}</p>
+  <p>固定电话：{{vm.data.fixedPhone}}</p>
+  <ul>
+    <li>活动名称: {{vm.data.name}}</li>
+  </ul>
+  <p>活动性质：</p>
+  <ul ng-repeat="item in vm.data.tags">
+    <li>{{item.name}}</li>
+  </ul>
+  <ul>
+    <li>活动类型: {{vm.data.category.name}}</li>
+    <li>活动地点: {{vm.data.addressSummary}}</li>
+    <li>活动开始时间: {{vm.data.startTime | date: "yyyy-MM-dd HH:mm"}}</li>
+    <li>活动结束时间: {{vm.data.endTime | date: "yyyy-MM-dd HH:mm"}}</li>
+    <li>报名截止时间: {{vm.data.signUpDeadline | date: "yyyy-MM-dd HH:mm"}}</li>
+    <li>签到开始时间: {{vm.data.checkInStartTime | date: "yyyy-MM-dd HH:mm"}}</li>
+    <li>签到结束时间: {{vm.data.checkInEndTime | date: "yyyy-MM-dd HH:mm"}}</li>
+
+  </ul>
+  <p>报名所需信息：</p>
+  <ul ng-repeat="item in vm.data.fields">
+    <li>{{item.name}}</li>
+  </ul>
+
+  <ul>
+    <li>报名人数：{{vm.getSignUpCount(vm.data.countLimit, item.countLimit)}}</li>
+    <li>报名费用：{{ vm.getSignUpCost(vm.data.expense, item.expense)}}</li>
+  </ul>
+  <p>活动详情：</p>
+  <div class="activityOneMesPlatDetail">
+
+  </div>
+  <p>封面大图：</p>
+  <img ng-src="{{vm.data.coverUrl}}" alt="封面大图">
+  <p>小图:</p>
+  <img ng-src="{{vm.data.coverThumbUrl}}" alt="小图">
+  <p>微信讨论组二维码:</p>
+  <img ng-src="{{vm.data.discussQrCodeUrl}}" alt="讨论组二维码">
+  <br>
+  <button ng-click="vm.checkButton('pass')" ng-show="vm.checkBtnStatus" style="width: 100px; height: 100px;background-color: #00c853;color:#fff;">审核通过</button>
+  <button ng-click="vm.checkButton('reject')" ng-show="vm.checkBtnStatus" style="width: 100px; height: 100px;background-color: #00c853;color:#fff;">审核不通过</button>
+</div>

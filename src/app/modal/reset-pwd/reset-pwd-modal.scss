@@ -1,0 +1,79 @@
+.mp-reset-pwd-modal {
+  .modal-dialog {
+    margin-top: 23vh;
+    width: 50%;
+    height: 50vh;
+    .modal-content {
+      border-radius: 3px;
+      height: 100%;
+    }
+  }
+}
+
+.mp-reset-pwd-modal-content-wrapper {
+  position: relative;
+  padding-bottom: 2rem;
+  ._close-btn {
+    position: fixed;
+    right: 1rem;
+    //margin-top: .5rem;
+    top: 1rem;
+  }
+  ._header {
+    text-align: center;
+    margin-bottom: 2em;
+  }
+  ._main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32vh;
+    padding-top: 2em;
+    ._row {
+      margin: 1em;
+      display: flex;
+      align-items: center;
+      > label {
+        display: flex;
+        justify-content: space-between;
+        font-weight: normal;
+        width: 5.2em;
+        margin-right: .5em;
+        &::after {
+          content: '：';
+        }
+      }
+      input {
+        width: 20em;
+        border: 1px solid #ddd;
+        padding: .3em;
+      }
+      ._phone-wrapper {
+        display: flex;
+        width: 20em;
+        > input {
+          flex: 1;
+          margin-right: .5em;
+        }
+      }
+    }
+    ._submit-row {
+      margin-top: 3em;
+      display: flex;
+      justify-content: center;
+    }
+
+    ._error {
+      &::after {
+        content: attr(data-error);
+        margin-left: .5em;
+        color: #e47b79;
+        width: 0;
+        height: 0;
+        white-space: nowrap;
+        margin-top: -1.4em;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,114 @@
+<div class="signUpPeopleInformation">
+  <div class="_signUpInformation-panel">
+    <div class="_active-signUpInformation-summary">
+      <div class="_active-signUpInformation-summary-title">
+        <div class="_active-signUpInformation-inner">
+          <span>{{vm.oneActivityMes.name}}</span>
+        </div>
+      </div>
+      <div class="_active-signUpInformation-status-wrap">
+        <span>活动状态:
+          <span class="_active-signUpInformation-status">
+            {{vm.oneActivityMes.status | activityStatusFilter}}
+          </span><br>
+          活动开始时间:{{vm.oneActivityMes.startTime | date: 'yyyy-MM-dd HH:mm'}}
+        </span>
+      </div>
+      <div class="_active-signUpQrcode">
+        <div class="_active-signUpQrcodeInner">
+          <div class="_signUpQrcodeImg">
+            <div class="_checkInImg">
+              <img ng-src="{{vm.oneActivityMes.checkInQrCodeUrl}}">
+            </div>
+            <div class="_checkInTimeEffect">
+              <p>签到时效</p>
+              <p>{{vm.oneActivityMes.checkInStartTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <p>{{vm.oneActivityMes.checkInEndTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <span class="downloadBtn" ng-click="vm.getQrcode(2)">下载</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_signUpInformation-detail">
+      <div class="_signUpInformation-mes">
+        <div class="_signUpInformation-mes-header">
+          <h5>活动详情</h5>
+        </div>
+        <div class="_signUpInformation-mes-content">
+          <ul>
+            <li>活动类型: <span class="primaryColorStyle">{{vm.oneActivityMes.category.name}}</span></li>
+            <li>活动地点: {{vm.oneActivityMes.addressSummary}}</li>
+            <li>活动负责人: {{vm.oneActivityMes.personInChargeName}}&nbsp;&nbsp;{{vm.oneActivityMes.personInChargeCellphone}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="_signUpInformation-num">
+        <ul>
+          <li><span></span>报名人数: {{vm.oneActivityMes.signInRecords.count}}人</li>
+          <li><span></span>签到人数: {{vm.oneActivityMes.signInRecords.checkInCount}}人</li>
+          <li><span></span>浏览人数: {{vm.oneActivityMes.stat.viewCount}}人</li>
+          <li><span></span>关注人数: {{vm.oneActivityMes.stat.followCount}}人</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mp-table-panel">
+    <div class="mp-table-header">
+      <h5 class="header-title">报名人员信息</h5>
+      <div class="condition-filter">
+        <div class="condition-state">
+          <span>是否签到</span>
+          <select ng-model="vm.params.status" ng-change="vm.statusFilter()">
+            <option value="" selected>不限</option>
+            <option value="0">未签到</option>
+            <option value="1">已签到</option>
+          </select>
+        </div>
+        <div class="condition-search">
+          <label for="searchType">
+            <input type="text" id="searchType" ng-model="vm.params.keyword">
+            <a href="#" ng-click="vm.searchKeyWords()"></a>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mp-table-wrap">
+      <div class="downloadMes" ng-show="vm.showDownloadSignBtn">
+        <span  ng-click="vm.downloadSignPeopleMes()" >导出报名人员信息</span>
+      </div>
+      <table class="mp-table">
+        <thead>
+        <tr>
+          <th>NO.</th>
+          <th>微信</th>
+          <th>姓名</th>
+          <th>性别</th>
+          <th>出生年月</th>
+          <th>所在学校/单位</th>
+          <th>手机号</th>
+          <th>报名时间</th>
+          <th>签到时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in vm.results">
+          <td>{{$index+1}}</td>
+          <td>{{item.volunteer.weChatVolunteer.nickname}}</td>
+          <td>{{item.volunteer.realname}}</td>
+          <td>{{item.volunteer.weChatVolunteer.sex==1?'男':'女'}}</td>
+          <td>{{item.volunteer.dob | activitySignUpPersonBirthFilter}}</td>
+          <td>{{item.volunteer.organization}}</td>
+          <td>{{item.volunteer.cellphone}}</td>
+          <td>{{item.signUpTime | date: "yyyy-MM-dd HH:mm"}}</td>
+          <td>{{item.checkedInTime | date: "yyyy-MM-dd HH:mm"}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <mp-pagination api="getActivitySignUpRecords" class="mp-pagination-activity" id="mpOrgActivityPersonInformationPagination" params="vm.params" results="vm.results"></mp-pagination>
+  </div>
+</div>
+

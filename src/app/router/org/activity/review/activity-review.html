@@ -1,0 +1,76 @@
+<div class="mp-org-activity-review">
+  <div class="_activity-review-data">
+    <div class="_activity-review-timer-data">
+      <div class="_review-header">
+        <div class="_review-inner">
+          <span>{{vm.reviewData.name}}</span>
+        </div>
+      </div>
+      <div class="_review-data">
+        <ul>
+          <li>活动开始时间:<span>{{vm.reviewData.startTime | date: 'yyyy-MM-dd HH:mm'}}</span></li>
+          <li>活动结束时间:<span>{{vm.reviewData.endTime | date: 'yyyy-MM-dd HH:mm'}}</span></li>
+          <li>活动类型:<span>{{vm.reviewData.category.name}}</span></li>
+          <li>活动地点:<span>{{vm.reviewData.addressSummary}}</span></li>
+          <li>活动负责人:<span>{{vm.reviewData.personInChargeName}}</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="_activity-review-num-data">
+      <div class="_review-header">
+        <h5>活动数据详情</h5>
+      </div>
+      <div class="_dataShow">
+        <div class="oneData commonDataStyle">
+          <div class="circleWrap">
+            <div class="circleInner">
+              <div class="circleNest">
+                {{vm.numData.signUpCount}}
+                <span>人</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="twoData commonDataStyle">
+          <div class="circleWrap">
+            <div class="circleInner">
+              <div class="circleNest">
+                {{vm.numData.checkInCount}}
+                <span>人</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="threeData commonDataStyle">
+          <div class="circleWrap">
+            <div class="circleInner">
+              <div class="circleNest">
+                {{vm.numData.arrivalRate}}
+                <span>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fourData commonDataStyle">
+          <div class="circleWrap">
+            <div class="circleInner">
+              <div class="circleNest">
+                {{vm.numData.punctualRate}}
+                <span>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="_activity-review-edit">
+    <div class="_active-edit-name">
+      活动回顾
+    </div>
+    <div>
+      <ng-simditor content="vm.activeLookBack"></ng-simditor>
+    </div>
+  </div>
+  <button class="_reviewSubBtn" ng-click="vm.activeReview()">提交</button>
+</div>

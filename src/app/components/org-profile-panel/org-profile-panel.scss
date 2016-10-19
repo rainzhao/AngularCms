@@ -1,0 +1,122 @@
+.mp-org-profile-panel {
+  label {
+    margin-bottom: 0;
+  }
+  label, input, select, option, p {
+    font-weight: normal;
+    color: #7d7d7d;
+  }
+  input, select{
+    border: 1px solid #ddd;
+    padding: .3em;
+  }
+  ._row {
+    display: flex;
+    margin: 1em 0;
+    ._title {
+      width: 10em;
+      padding-right: .5em;
+      display: flex;
+      margin-top: .3em;
+      justify-content: space-between;
+      &::after {
+        content: '：';
+      }
+    }
+    input, >select, input._address-detail {
+      width: 38em;
+    }
+    ._logo-wrapper {
+      ._logo {
+        max-width: 100px;
+        border-radius: 100%;
+      }
+      .mp-upload-btn {
+
+        border: none;
+      }
+    }
+    ._address-group {
+      width: 38em;
+      display: flex;
+      margin-bottom: .5em;
+      select {
+        flex: 1;
+        &:not(:first-child) {
+          margin-left: 1em;
+        }
+      }
+    }
+    ._address-group {
+      position: relative;
+      &::after {
+        position: absolute;
+        margin-left: 38.5em;
+        white-space: nowrap;
+        //right: 0;
+      }
+    }
+    ._phone-wrapper {
+      width: 38em;
+      display: flex;
+      > input {
+        flex: 1;
+      }
+      > button {
+        margin-left: 1em;
+      }
+      &._error {
+        position: relative;
+        &::after {
+          position: absolute;
+          margin-left: 38.5em;
+          white-space: nowrap;
+          //right: 0;
+        }
+      }
+    }
+    ._editor-wrapper {
+      width: 38em;
+    }
+    ._certification-wrapper {
+      margin-top: .3em;
+      width: 38em;
+      ._certification-img {
+        width: 120px;
+        height: 120px;
+        vertical-align: baseline;
+        margin-right: 1em;
+        margin-bottom: 1em;
+      }
+      .mp-upload-btn {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        top: -1em;
+      }
+      ._uploader-wrapper mp-img-uploader:first-child {
+        .mp-upload-btn {
+          top: 0;
+        }
+      }
+    }
+  }
+  ._submit-row {
+    //justify-content: center;
+    margin-top: 2em;
+    button {
+      border-radius: 0;
+      background: $primaryColor;
+      color: #fff;
+      padding: .5em 2em;
+    }
+  }
+  ._error {
+    &::after {
+      content: attr(data-error);
+      margin-left: .5em;
+      margin-top: .3em;
+      color: #e47b79;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<header class="mp-header">
+  <nav class="_breadcrumb">
+    <span>当前位置：</span>
+    <ul>
+      <li ng-repeat="state in breadcrumb">
+        <span class="_item" ng-if="!state.name">{{state.$name}}</span>
+        <a class="_item" ng-if="state.name" ui-sref="{{state.name}}">{{state.$name}}</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="_profile">
+
+  </div>
+
+</header>

@@ -1,0 +1,9 @@
+<ul ng-if="item" class="{{'_level' + item.$level}}">
+  <li ng-repeat="subItem in item.items" ng-class="{'active': subItem.$active, 'expand': subItem.$expand, '_folder': subItem.$isFolder}">
+    <a ng-if="subItem.title" href="" ng-click="subItem.$click()">
+      <i ng-if="subItem.icon" class="{{subItem.icon}}"></i>
+      <span>{{subItem.title}}</span>
+    </a>
+    <mp-menu-item item="subItem"></mp-menu-item>
+  </li>
+</ul>

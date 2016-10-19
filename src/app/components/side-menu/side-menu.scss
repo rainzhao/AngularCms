@@ -1,0 +1,138 @@
+.mp-side-menu {
+  display: flex;
+  flex-direction: column;
+  ._logo-wrapper {
+    display: block;
+    height: $headerHeight;
+    line-height: $headerHeight;
+    text-align: center;
+    background: $primaryColor;
+    cursor: pointer;
+  }
+  ._profile-container {
+    color: #fff;
+    background: #28282E;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    text-align: center;
+    figure {
+      text-align: center;
+      img {
+        width: 80px;
+        height: 80px;
+        border-radius: 100%;
+      }
+      margin-bottom: 1rem;
+    }
+    p {
+      padding: 0 1rem;
+      margin: 0;
+      small {        /*组织地址*/
+        color: #cfcfd0;
+        &::before {
+          content: '';
+          display: inline-block;
+          height: 1.2em;
+          width: 1.2em;
+          position: relative;
+          top: 2px;
+          background: url("../assets/images/icon/location.png");
+          background-size: contain;
+        }
+      }
+    }
+  }
+  ._nav {
+    flex: 1;
+    color: #fff;
+    overflow: scroll;
+
+    ul {
+      list-style: none;
+      //text-align: center;
+      margin: 0;
+      padding: 0;
+      li {
+        a {
+          display: block;
+          height: 4rem;
+          line-height: 4rem;
+          text-decoration: none;
+          //text-align: center;
+          color: #aeb2b7;
+          position: relative;
+          &:hover {
+            background: #202025;
+          }
+          >i {
+            color: #fff;
+            margin-right: .5em;
+            transition: .1s linear;
+          }
+          >span {
+            min-width: 4em;
+            display: inline-block;
+            text-align: left;
+          }
+        }
+      }
+      li.active {
+        a {
+          color: $primaryColor;
+          background: #202025;
+        }
+        i {
+          color: $primaryColor;
+        }
+      }
+      li._folder {
+        >a {
+          &::after {
+            position: absolute;
+            content: '';
+            right: 1rem;
+            width: 1.2em;
+            height: 1.2em;
+            margin-top: 1.15em;
+            background: url("../assets/svg/arrow_right_grey.svg") no-repeat;
+            background-size: cover;
+            transition: .1s linear;
+          }
+        }
+        >mp-menu-item>ul {
+          transition: .3s linear;
+          overflow: hidden;
+          max-height: 0;
+        }
+      }
+      li._folder.expand {
+        background: #28282e;
+        >a {
+          &::after {
+            transform: rotate(90deg);
+          }
+          > i {
+            color: $primaryColor;
+          }
+        }
+        >mp-menu-item>ul {
+          max-height: 150px;
+        }
+      }
+
+    }
+
+    ul {
+      &._level1>li>a {
+        padding: 0 1rem;
+      }
+      &._level2>li>a {
+        padding: 0 3rem;
+      }
+      &._level3>li>a {
+        padding: 0 5rem;
+      }
+    }
+
+  }
+}
